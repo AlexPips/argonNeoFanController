@@ -41,7 +41,7 @@ func getAverageTemperature(_path string) (float64, error) {
 	}
 
 	if count == 0 {
-		return 0, fmt.Errorf("no temperature data found")
+		return 0, fmt.Errorf("No temperature data found")
 	}
 	return float64(totalTemp) / float64(count), nil
 }
@@ -69,10 +69,10 @@ func main() {
 			fmt.Println("Error:", err)
 			return
 		}
-		fmt.Printf("Average temperature: %.2f°C\n", avgTemp/1000)
+		// fmt.Printf("Average temperature: %.2f°C\n", avgTemp/1000)
 
 		fanSpeed := getFanSpeed(avgTemp / 1000)
-		fmt.Printf("Setting fan speed to %d%%\n", fanSpeed)
+		// fmt.Printf("Setting fan speed to %d%%\n", fanSpeed)
 
 		err = bus.WriteReg(0x1a, 0x00,byte(fanSpeed)) // replace with your register address
 		if err != nil {
