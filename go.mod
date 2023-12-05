@@ -1,4 +1,4 @@
-module github.com/myusername/myrepo
+module github.com/AlexPips/argonNeoFanController
 
 go 1.21.4
 
