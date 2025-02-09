@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Edit serivce file
-execScriptPath=$(pwd)/argonNeoFanController
+# sudo /usr/local/go/bin/go build
 
-# Replace the file line
-sed -i "s|^ExecStart=.*|ExecStart=$execScriptPath|" customFanController.service
+sudo cp argonNeoFanController /usr/local/bin/argonNeoFanController
 
 # Define the service file name
 serviceFile="customFanController.service"

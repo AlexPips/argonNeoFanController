@@ -5,6 +5,6 @@ After=multi-user.target
 Type=simple
 Restart=always
 RemainAfterExit=true
-ExecStart=
+ExecStart=/usr/local/bin/argonNeoFanController
 [Install]
 WantedBy=multi-user.target

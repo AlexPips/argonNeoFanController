@@ -57,30 +57,22 @@ func getFanSpeed(_temp float64) int {
 
 
 func main() {
-	bus, err := smbus.Open(1, 0x1a) // replace 0x1a with your device address
+	bus, err := smbus.Open(1, 0x1a) // Change 0x1a to your correct I2C address
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Println("Error opening I2C:", err)
 		return
 	}
+	defer bus.Close() // Ensure the bus is closed when the program exits
 
 	for {
 		avgTemp, err := getAverageTemperature("/sys/class/thermal")
 		if err != nil {
-			fmt.Println("Error:", err)
-			return
+			time.Sleep(5 * time.Second)
+			continue // Continue loop if there's an error
 		}
-		// fmt.Printf("Average temperature: %.2f°C\n", avgTemp/1000)
-
 		fanSpeed := getFanSpeed(avgTemp / 1000)
-		// fmt.Printf("Setting fan speed to %d%%\n", fanSpeed)
-
-		err = bus.WriteReg(0x1a, 0x00,byte(fanSpeed)) // replace with your register address
-		if err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
-
-		time.Sleep(5 * time.Second)
+		err = bus.WriteReg(0x1a, 0x00, byte(fanSpeed)) // Change 0x00 to the correct register
+		time.Sleep(5 * time.Second) // Wait before next update
 	}
 }
 
